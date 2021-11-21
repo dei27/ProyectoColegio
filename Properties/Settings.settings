@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="noSoyLaCadena" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Server=DESKTOP-E1RH23F\SQLEXPRESS;Database=Biblioteca;User Id=sa;Password=sa;</Value>
+      <Value Profile="(Default)">Server=DESKTOP-E1RH23F\SQLEXPRESS;Database=AC1Q;User Id=sa;Password=sa;</Value>
     </Setting>
   </Settings>
 </SettingsFile>
