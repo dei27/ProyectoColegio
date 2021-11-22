@@ -25,7 +25,7 @@ namespace ProyectoColegio.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server=DESKTOP-E1RH23F\\SQLEXPRESS;Database=AC1Q;User Id=sa;Password=sa;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=DESKTOP-E1RH23F\\SQLEXPRESS;Database=test006;User Id=sa;Password=sa;")]
         public string noSoyLaCadena {
             get {
                 return ((string)(this["noSoyLaCadena"]));

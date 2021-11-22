@@ -29,71 +29,58 @@ namespace ProyectoColegio
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.dgvAulas = new System.Windows.Forms.DataGridView();
-            this.dtpFechaInicioHorario = new System.Windows.Forms.DateTimePicker();
-            this.labelPrueba = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAulas)).BeginInit();
+            this.btnDirector = new System.Windows.Forms.Button();
+            this.btnDocente = new System.Windows.Forms.Button();
+            this.btnAsistente = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // btnDirector
             // 
-            this.button1.Location = new System.Drawing.Point(112, 75);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(191, 89);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnDirector.Location = new System.Drawing.Point(50, 140);
+            this.btnDirector.Name = "btnDirector";
+            this.btnDirector.Size = new System.Drawing.Size(193, 100);
+            this.btnDirector.TabIndex = 0;
+            this.btnDirector.Text = "Director";
+            this.btnDirector.UseVisualStyleBackColor = true;
             // 
-            // dgvAulas
+            // btnDocente
             // 
-            this.dgvAulas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAulas.Location = new System.Drawing.Point(84, 193);
-            this.dgvAulas.Name = "dgvAulas";
-            this.dgvAulas.Size = new System.Drawing.Size(546, 172);
-            this.dgvAulas.TabIndex = 1;
+            this.btnDocente.Location = new System.Drawing.Point(271, 140);
+            this.btnDocente.Name = "btnDocente";
+            this.btnDocente.Size = new System.Drawing.Size(193, 100);
+            this.btnDocente.TabIndex = 1;
+            this.btnDocente.Text = "Docente";
+            this.btnDocente.UseVisualStyleBackColor = true;
             // 
-            // dtpFechaInicioHorario
+            // btnAsistente
             // 
-            this.dtpFechaInicioHorario.Location = new System.Drawing.Point(399, 71);
-            this.dtpFechaInicioHorario.Name = "dtpFechaInicioHorario";
-            this.dtpFechaInicioHorario.Size = new System.Drawing.Size(231, 20);
-            this.dtpFechaInicioHorario.TabIndex = 2;
-            this.dtpFechaInicioHorario.Value = new System.DateTime(2021, 11, 29, 0, 0, 0, 0);
-            // 
-            // labelPrueba
-            // 
-            this.labelPrueba.AutoSize = true;
-            this.labelPrueba.Location = new System.Drawing.Point(402, 116);
-            this.labelPrueba.Name = "labelPrueba";
-            this.labelPrueba.Size = new System.Drawing.Size(35, 13);
-            this.labelPrueba.TabIndex = 3;
-            this.labelPrueba.Text = "label1";
+            this.btnAsistente.Location = new System.Drawing.Point(498, 140);
+            this.btnAsistente.Name = "btnAsistente";
+            this.btnAsistente.Size = new System.Drawing.Size(193, 100);
+            this.btnAsistente.TabIndex = 2;
+            this.btnAsistente.Text = "Asistente";
+            this.btnAsistente.UseVisualStyleBackColor = true;
+            this.btnAsistente.Click += new System.EventHandler(this.btnAsistente_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.labelPrueba);
-            this.Controls.Add(this.dtpFechaInicioHorario);
-            this.Controls.Add(this.dgvAulas);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnAsistente);
+            this.Controls.Add(this.btnDocente);
+            this.Controls.Add(this.btnDirector);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAulas)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dgvAulas;
-        private System.Windows.Forms.DateTimePicker dtpFechaInicioHorario;
-        private System.Windows.Forms.Label labelPrueba;
+        private System.Windows.Forms.Button btnDirector;
+        private System.Windows.Forms.Button btnDocente;
+        private System.Windows.Forms.Button btnAsistente;
     }
 }
 
