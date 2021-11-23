@@ -33,47 +33,48 @@ namespace ProyectoColegio
             }
             else
             {
-                DateTime date = new DateTime(2021, 3, 26, 7, 20, 0);
-                int totalDia = 0;
-                int aulas = 1;
-                int dia = 0;
-
-
                 EHorario horario = new EHorario();
-                while (aulas < 9)
+                
+                for (int secciones = 1; secciones < 9; secciones++)
                 {
-                    while (dia < 5)
-                    {
-                        while (totalDia < 11)
-                        {
-                            int numLeccion = 1;
-                            int contadorMinutos = 0;
-                            int cantidadLeccionMateria = cantidadLeccionesMateria(numLeccion);
+                    DateTime date = new DateTime(2021, 3, 26, 7, 20, 0);
+                    int totalDia = 10;
+                    int contadorMinutos = 0;
+                    int numeroAula= lnH.aulaMateriaDisponible("IdAula", "Aulas", date.ToString("yyyy-MM-dd h:m"));
 
-                            while (cantidadLeccionMateria != 0)
-                            {
-                                //int cantidadProfe = lnH.contar("Horarios", $"IdMateria={lecciones} and IdDocente={lecciones}");
-                                horario.Aula.IdAula = aulas;
-                                horario.Docente.IdDocente = numLeccion;
-                                horario.Seccion.IdSeccion = aulas;
-                                date = date.AddMinutes(sumarMinutosInicio(contadorMinutos));
-                                horario.FechaInicioLeccion = date;
-                                horario.FechaFinLeccion = date.AddMinutes(40);
-                                lnH.insertarHorario(horario);
-                                cantidadLeccionMateria--;
-                                contadorMinutos++;
-                                numLeccion++;
-                            }
-                            totalDia = +cantidadLeccionMateria;
+                    for (int ileccionesDiarias = 1; ileccionesDiarias < 11; ileccionesDiarias++)
+                    {
+                        int cantidadLeccionMateria = cantidadLeccionesMateria(ileccionesDiarias);
+                        int idDocente = lnH.elegir("IdDocente", "Docentes", $"IdMateria={ileccionesDiarias}");
+                        if (lnH.contar("Horarios", $"Iddocente={idDocente}") > 40)
+                        {
+                            idDocente++;
                         }
-                        date = date.AddHours(16);
-                        horario.FechaInicioLeccion = date;
-                        dia++;
+                        while (cantidadLeccionMateria != 0)
+                        {
+                            horario.Aula.IdAula = numeroAula;
+                            horario.Docente.IdDocente = idDocente;
+                            horario.Seccion.IdSeccion = secciones;
+                            date = date.AddMinutes(sumarMinutosInicio(contadorMinutos));
+                            horario.FechaInicioLeccion = date;
+                            horario.FechaFinLeccion = date.AddMinutes(40);
+                            lnH.insertarHorario(horario);
+                            cantidadLeccionMateria--;
+                            contadorMinutos++;
+                            totalDia--;
+                            if (totalDia == 0)
+                            {
+                                totalDia = 10;
+                                contadorMinutos = 0;
+                                date = date.AddHours(16);
+                                horario.FechaInicioLeccion = date;
+                            }
+                            //TODO: subir las secciones y cambiar día-aula cuando se cumplen las 29 lecciones
+                        }
                     }
-                    aulas++;
                 }
             }
-            llenarDGV();
+            //llenarDGV();
             labelPrueba.Text = lnH.contar("Horarios", "IdSeccion=1 and IdDocente=1").ToString();
 
             //('Ingles'),
@@ -148,12 +149,10 @@ namespace ProyectoColegio
                 case 9:
                     cantidad = 1;
                     break;
-                case 10:
-                    cantidad = 12;
+                default:
+                    cantidad = 0;
                     break;
-                case 11:
-                    cantidad = 12;
-                    break;
+
             }
             return cantidad;
         }
