@@ -18,7 +18,7 @@ namespace ProyectoColegio
 
         private void btnAsistente_Click(object sender, EventArgs e)
         {
-            Asistente asistente = new Asistente();
+            AsistentePrincipal asistente = new AsistentePrincipal();
             asistente.Show();
         }
     }

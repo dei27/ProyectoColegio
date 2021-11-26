@@ -36,7 +36,9 @@ namespace ProyectoColegio
             // 
             // btnDirector
             // 
-            this.btnDirector.Location = new System.Drawing.Point(50, 140);
+            this.btnDirector.Enabled = false;
+            this.btnDirector.Font = new System.Drawing.Font("Hughs", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDirector.Location = new System.Drawing.Point(90, 165);
             this.btnDirector.Name = "btnDirector";
             this.btnDirector.Size = new System.Drawing.Size(193, 100);
             this.btnDirector.TabIndex = 0;
@@ -45,7 +47,9 @@ namespace ProyectoColegio
             // 
             // btnDocente
             // 
-            this.btnDocente.Location = new System.Drawing.Point(271, 140);
+            this.btnDocente.Enabled = false;
+            this.btnDocente.Font = new System.Drawing.Font("Hughs", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDocente.Location = new System.Drawing.Point(311, 165);
             this.btnDocente.Name = "btnDocente";
             this.btnDocente.Size = new System.Drawing.Size(193, 100);
             this.btnDocente.TabIndex = 1;
@@ -54,7 +58,8 @@ namespace ProyectoColegio
             // 
             // btnAsistente
             // 
-            this.btnAsistente.Location = new System.Drawing.Point(498, 140);
+            this.btnAsistente.Font = new System.Drawing.Font("Hughs", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAsistente.Location = new System.Drawing.Point(538, 165);
             this.btnAsistente.Name = "btnAsistente";
             this.btnAsistente.Size = new System.Drawing.Size(193, 100);
             this.btnAsistente.TabIndex = 2;
@@ -71,7 +76,7 @@ namespace ProyectoColegio
             this.Controls.Add(this.btnDocente);
             this.Controls.Add(this.btnDirector);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Colegio";
             this.ResumeLayout(false);
 
         }

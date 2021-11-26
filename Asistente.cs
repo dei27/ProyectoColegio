@@ -24,6 +24,7 @@ namespace ProyectoColegio
 
         private void btnGenerarHorario_Click(object sender, EventArgs e)
         {
+            btnGenerarHorario.Enabled = false;
             DateTime fecha = dtpInicioDeHorario.Value;
 
             if (fecha.DayOfWeek != DayOfWeek.Monday)
@@ -34,30 +35,46 @@ namespace ProyectoColegio
             else
             {
                 EHorario horario = new EHorario();
-                
-                for (int secciones = 1; secciones < 9; secciones++)
+
+                for (int secciones = 1; secciones < 10; secciones++)
                 {
-                    DateTime date = new DateTime(2021, 3, 26, 7, 20, 0);
+                    fecha = dtpInicioDeHorario.Value.Date + dateTimeHoraInicio.Value.TimeOfDay;
+
                     int totalDia = 10;
                     int contadorMinutos = 0;
-                    int numeroAula= lnH.aulaMateriaDisponible("IdAula", "Aulas", date.ToString("yyyy-MM-dd h:m"));
+                    int materia = 0;
+
+                    if (secciones == 9)
+                    {
+                        fecha = fecha.AddDays(3);
+                    }
+
+                    int numeroAula = lnH.aulaDocenteDisponible("IdAula", "Aulas", fecha.ToString("yyyy-MM-dd h:m"));
 
                     for (int ileccionesDiarias = 1; ileccionesDiarias < 11; ileccionesDiarias++)
                     {
-                        int cantidadLeccionMateria = cantidadLeccionesMateria(ileccionesDiarias);
-                        int idDocente = lnH.elegir("IdDocente", "Docentes", $"IdMateria={ileccionesDiarias}");
-                        if (lnH.contar("Horarios", $"Iddocente={idDocente}") > 40)
+
+                        if (secciones != 1)
                         {
-                            idDocente++;
+                            materia = lnH.materiaDisponible(fecha.ToString("yyyy-MM-dd h:m"));
                         }
+                        else
+                        {
+                            materia++;
+                        }
+
+                        int cantidadLeccionMateria = cantidadLeccionesMateria(materia);
+                        int idDocente = lnH.elegir("IdDocente", "Docentes", $"IdMateria={materia}");
+
                         while (cantidadLeccionMateria != 0)
                         {
                             horario.Aula.IdAula = numeroAula;
+
                             horario.Docente.IdDocente = idDocente;
                             horario.Seccion.IdSeccion = secciones;
-                            date = date.AddMinutes(sumarMinutosInicio(contadorMinutos));
-                            horario.FechaInicioLeccion = date;
-                            horario.FechaFinLeccion = date.AddMinutes(40);
+                            fecha = fecha.AddMinutes(sumarMinutosInicio(contadorMinutos));
+                            horario.FechaInicioLeccion = fecha;
+                            horario.FechaFinLeccion = fecha.AddMinutes(40);
                             lnH.insertarHorario(horario);
                             cantidadLeccionMateria--;
                             contadorMinutos++;
@@ -66,29 +83,75 @@ namespace ProyectoColegio
                             {
                                 totalDia = 10;
                                 contadorMinutos = 0;
-                                date = date.AddHours(16);
-                                horario.FechaInicioLeccion = date;
+                                fecha = fecha.AddHours(16);
+                                horario.FechaInicioLeccion = fecha;
                             }
-                            //TODO: subir las secciones y cambiar día-aula cuando se cumplen las 29 lecciones
                         }
+
+
                     }
                 }
+
+                //segundo ciclo para grupos decimo a duodecimo
+
+                //for (int secciones = 1; secciones < 5; secciones++)
+                //{
+                //    fecha = dtpInicioDeHorario.Value.Date + dateTimeHoraInicio.Value.TimeOfDay;
+
+                //    int totalDia = 10;
+                //    int contadorMinutos = 0;
+                //    int materia = 0;
+
+                //    if (secciones == 9)
+                //    {
+                //        fecha = fecha.AddDays(3);
+                //    }
+
+                //    int numeroAula = lnH.aulaDocenteDisponible("IdAula", "Aulas", fecha.ToString("yyyy-MM-dd h:m"));
+                //    materia = lnH.materiaDisponible(fecha.ToString("yyyy-MM-dd h:m"));
+
+                //    for (int ileccionesDiarias = 1; ileccionesDiarias < 11; ileccionesDiarias++)
+                //    {
+
+                //        int cantidadLeccionMateria = cantidadLeccionesMateria(materia);
+                //        int idDocente = lnH.elegir("IdDocente", "Docentes", $"IdMateria={materia}");
+
+                //        while (cantidadLeccionMateria != 0)
+                //        {
+                //            if (materia==10)
+                //            {
+                //                numeroAula = 11;
+                //            }
+                //            else if(materia==11)
+                //            {
+                //                numeroAula=12;
+                //            }
+                //            horario.Aula.IdAula = numeroAula;
+                //            horario.Docente.IdDocente = idDocente;
+                //            horario.Seccion.IdSeccion = secciones;
+                //            fecha = fecha.AddMinutes(sumarMinutosInicio(contadorMinutos));
+                //            horario.FechaInicioLeccion = fecha;
+                //            horario.FechaFinLeccion = fecha.AddMinutes(40);
+                //            lnH.insertarHorario(horario);
+                //            cantidadLeccionMateria--;
+                //            contadorMinutos++;
+                //            totalDia--;
+                //            if (totalDia == 0)
+                //            {
+                //                totalDia = 10;
+                //                contadorMinutos = 0;
+                //                fecha = fecha.AddHours(16);
+                //                horario.FechaInicioLeccion = fecha;
+                //            }
+                //        }
+                //        materia++;
+
+                //    }
+                //}
+
             }
-            //llenarDGV();
+            llenarDGV();
             labelPrueba.Text = lnH.contar("Horarios", "IdSeccion=1 and IdDocente=1").ToString();
-
-            //('Ingles'),
-            //('Ciencias'),
-            //('Matematicas'),
-            //('Español'),
-            //('Estudios Sociales'),
-            //('Frances'),
-            //('Educacion Fisica'),
-            //('Musica'),
-            //('Educacion Financiera'),
-            //('Computo'),
-            //('Contabilidad'),
-
 
         }
 
@@ -98,8 +161,7 @@ namespace ProyectoColegio
             try
             {
                 ds = lnH.listarHorarios(condicion);
-                //ds = ln.listarTodos(); ///like se usa como comparador % comodines para buscar por filtros en el where
-                dgvHorario.DataSource = ds.Tables[0]; // se carga el data grid view  con el indice 0 del data set;
+                dgvHorario.DataSource = ds.Tables[0];
             }
             catch (Exception ex)
             {
@@ -184,6 +246,44 @@ namespace ProyectoColegio
             }
 
             return minutos;
+        }
+
+        public int cantidadLeccionesMateria1012(int idLeccion)
+        {
+            int cantidad = 0;
+
+            switch (idLeccion)
+            {
+                case 1:
+                    cantidad = 6;
+                    break;
+                case 2:
+                    cantidad = 4;
+                    break;
+                case 3:
+                    cantidad = 4;
+                    break;
+                case 4:
+                    cantidad = 4;
+                    break;
+                case 5:
+                    cantidad = 4;
+                    break;
+                case 7:
+                    cantidad = 2;
+                    break;
+                case 10:
+                    cantidad = 12;
+                    break;
+                case 11:
+                    cantidad = 12;
+                    break;
+                default:
+                    cantidad = 0;
+                    break;
+
+            }
+            return cantidad;
         }
     }
 }
